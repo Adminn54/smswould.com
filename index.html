@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>smswould.com</title>
+    <meta
+      name="description"
+      content="smswould.com — a modern SMS-first communication platform."
+    />
+    <style>
+      :root {
+        --bg: #0b1020;
+        --panel: #121b2d;
+        --panel-2: #1a2640;
+        --text: #edf4ff;
+        --muted: #a8b5d0;
+        --primary: #60a5fa;
+        --primary-2: #7c3aed;
+        --accent: #34d399;
+        --border: rgba(255, 255, 255, 0.08);
+        --shadow: 0 25px 60px rgba(12, 18, 33, 0.45);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(96, 165, 250, 0.15), transparent 30%),
+          radial-gradient(circle at top right, rgba(124, 58, 237, 0.12), transparent 35%),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(14px);
+        background: rgba(11, 16, 32, 0.7);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 74px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        box-shadow: var(--shadow);
+        font-size: 0.9rem;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        color: var(--muted);
+        font-size: 0.96rem;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        padding: 0.9rem 1.4rem;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 1px solid transparent;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: white;
+        box-shadow: 0 18px 35px rgba(96, 165, 250, 0.25);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.02);
+        border-color: var(--border);
+        color: var(--text);
+      }
+
+      .hero {
+        padding: 78px 0 56px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.12fr 0.88fr;
+        align-items: center;
+        gap: 34px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        border-radius: 999px;
+        padding: 0.5rem 0.8rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 16px rgba(52, 211, 153, 0.8);
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 4vw, 5rem);
+        line-height: 1.02;
+        letter-spacing: -0.06em;
+        margin: 18px 0 18px;
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #dbeafe, #c4b5fd 45%, #7dd3fc);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .lead {
+        color: var(--muted);
+        font-size: 1.08rem;
+        max-width: 620px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .hero-meta {
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+        margin-top: 32px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .hero-card {
+        position: relative;
+        border-radius: 26px;
+        padding: 20px;
+        background: linear-gradient(180deg, rgba(18, 27, 45, 0.94), rgba(18, 27, 45, 0.7));
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .phone-shell {
+        position: relative;
+        margin: 0 auto;
+        width: min(100%, 390px);
+        padding: 18px 18px 12px;
+        background: #0d1324;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 34px;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 40px 80px rgba(7, 10, 18, 0.6);
+      }
+
+      .notch {
+        width: 132px;
+        height: 22px;
+        margin: 0 auto 12px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.04);
+      }
+
+      .sms-screen {
+        background: linear-gradient(180deg, #0f172a, #111827);
+        border-radius: 26px;
+        padding: 18px 14px 12px;
+        min-height: 560px;
+        border: 1px solid rgba(255,255,255,0.04);
+      }
+
+      .chat-row {
+        display: flex;
+        margin-bottom: 12px;
+      }
+
+      .chat-row.outgoing {
+        justify-content: flex-end;
+      }
+
+      .bubble {
+        max-width: 75%;
+        padding: 12px 14px;
+        border-radius: 18px;
+        font-size: 0.96rem;
+      }
+
+      .bubble.incoming {
+        background: rgba(148, 163, 184, 0.12);
+        color: var(--text);
+        border-top-left-radius: 8px;
+      }
+
+      .bubble.outgoing {
+        background: linear-gradient(135deg, #3b82f6, #7c3aed);
+        color: white;
+        border-top-right-radius: 8px;
+      }
+
+      .mini-stats {
+        position: absolute;
+        right: -16px;
+        bottom: 28px;
+        width: 170px;
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        background: rgba(15, 23, 42, 0.95);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .mini-stats strong {
+        display: block;
+        font-size: 1.6rem;
+        margin-top: 6px;
+      }
+
+      .section {
+        padding: 56px 0;
+      }
+
+      .section-heading {
+        max-width: 760px;
+        margin: 0 auto 28px;
+        text-align: center;
+      }
+
+      .section-heading h2 {
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin: 0 0 10px;
+        letter-spacing: -0.05em;
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .feature {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        padding: 22px;
+      }
+
+      .icon {
+        width: 52px;
+        height: 52px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(124,58,237,0.18));
+        font-size: 1.3rem;
+        margin-bottom: 18px;
+      }
+
+      .feature h3 {
+        margin: 0 0 10px;
+        font-size: 1.3rem;
+      }
+
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .panel {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        padding: 26px;
+      }
+
+      .stats-box {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .stat {
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.02);
+        border-radius: 18px;
+        padding: 18px 16px;
+      }
+
+      .stat span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 8px;
+        font-size: clamp(1.6rem, 2vw, 2.2rem);
+      }
+
+      .checklist {
+        list-style: none;
+        margin: 24px 0 0;
+        padding: 0;
+        display: grid;
+        gap: 14px;
+      }
+
+      .checklist li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        color: var(--muted);
+      }
+
+      .checkmark {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: rgba(52, 211, 153, 0.12);
+        color: var(--accent);
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .cta {
+        padding: 34px 0 74px;
+      }
+
+      .cta-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 28px 28px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(96,165,250,0.12), rgba(124,58,237,0.12));
+        border: 1px solid var(--border);
+      }
+
+      .cta-box h3 {
+        margin: 0 0 8px;
+        font-size: clamp(1.8rem, 2.6vw, 3rem);
+        letter-spacing: -0.05em;
+      }
+
+      .cta-box p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--border);
+        padding: 24px 0 40px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .split,
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .cta-box {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .nav {
+          gap: 12px;
+        }
+
+        .nav-actions {
+          gap: 8px;
+        }
+
+        .btn {
+          padding: 0.8rem 1rem;
+          font-size: 0.92rem;
+        }
+
+        .hero {
+          padding-top: 56px;
+        }
+
+        .mini-stats {
+          position: static;
+          width: 100%;
+          margin-top: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="#top" class="brand" aria-label="smswould home">
+          <span class="brand-mark">S</span>
+          <span>smswould.com</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#features">Features</a>
+          <a href="#solutions">Solutions</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a class="btn btn-secondary" href="#contact">Book a demo</a>
+          <a class="btn btn-primary" href="#pricing">Get started</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">Built for modern messaging teams</div>
+            <h1>
+              Text smarter.<br />
+              <span class="gradient-text">Scale faster.</span>
+            </h1>
+            <p class="lead">
+              smswould.com helps businesses send, automate, and analyze SMS campaigns
+              with enterprise-grade reliability, lightning-fast delivery, and customer-friendly workflows.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#pricing">Start free</a>
+              <a class="btn btn-secondary" href="#features">View features</a>
+            </div>
+
+            <div class="hero-meta">
+              <span>99.99% delivery uptime</span>
+              <span>2.4s average response time</span>
+              <span>Global coverage</span>
+            </div>
+          </div>
+
+          <div class="hero-card" aria-label="Product preview panel">
+            <div class="phone-shell">
+              <div class="notch"></div>
+              <div class="sms-screen">
+                <div class="chat-row incoming">
+                  <div class="bubble incoming">Hi there! Your order is on the way.</div>
+                </div>
+                <div class="chat-row outgoing">
+                  <div class="bubble outgoing">Perfect, thanks for the update.</div>
+                </div>
+                <div class="chat-row incoming">
+                  <div class="bubble incoming">Would you like a delivery reminder tomorrow?</div>
+                </div>
+                <div class="chat-row outgoing">
+                  <div class="bubble outgoing">Yes, please.</div>
+                </div>
+                <div class="chat-row incoming">
+                  <div class="bubble incoming">Saved. You’ll receive the reminder at 9:00 AM.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mini-stats">
+              <span>Campaign success</span>
+              <strong>94.8%</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Everything you need to power conversation</h2>
+            <p>
+              From mass outreach to personal two-way messaging, smswould.com gives your team the tools to communicate better and convert faster.
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature">
+              <div class="icon">✉️</div>
+              <h3>Smart SMS workflows</h3>
+              <p>Automate reminders, alerts, customer updates, and follow-ups with configurable messages and triggers.</p>
+            </article>
+
+            <article class="feature">
+              <div class="icon">⚡</div>
+              <h3>Fast sending at scale</h3>
+              <p>Deliver campaigns with reliable routing, priority handling, and a system built for high-volume use.</p>
+            </article>
+
+            <article class="feature">
+              <div class="icon">📊</div>
+              <h3>Clear reporting</h3>
+              <p>Track delivery rate, engagement, conversions, and campaign performance in one intuitive dashboard.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="solutions" class="section">
+        <div class="container split">
+          <div class="panel">
+            <div class="eyebrow">Why teams choose us</div>
+            <h2 style="margin-top: 18px; font-size: clamp(2rem, 3vw, 3rem); letter-spacing: -0.05em;">Built for reliability, speed, and trust.</h2>
+            <ul class="checklist">
+              <li><span class="checkmark">✓</span><span>Two-way messaging workflows that feel personal and responsive.</span></li>
+              <li><span class="checkmark">✓</span><span>Granular audience targeting and precise delivery controls.</span></li>
+              <li><span class="checkmark">✓</span><span>Security-conscious infrastructure for growing businesses.</span></li>
+              <li><span class="checkmark">✓</span><span>Simple APIs for developers and flexible operations for teams.</span></li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <div class="eyebrow">Live performance</div>
+            <div class="stats-box">
+              <div class="stat">
+                <span>Messages sent</span>
+                <strong>12.8M</strong>
+              </div>
+              <div class="stat">
+                <span>Avg. open rate</span>
+                <strong>98%</strong>
+              </div>
+              <div class="stat">
+                <span>Response time</span>
+                <strong>2.4s</strong>
+              </div>
+              <div class="stat">
+                <span>Uptime</span>
+                <strong>99.99%</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Simple pricing for all stages</h2>
+            <p>Choose the plan that fits your growth, from launch to enterprise-scale messaging.</p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature">
+              <h3>Starter</h3>
+              <p style="font-size: 2rem; font-weight: 800; margin: 12px 0; color: white;">$29<span style="font-size: 1rem; color: var(--muted);">/mo</span></p>
+              <p>For small teams launching their first customer messaging automation.</p>
+            </article>
+
+            <article class="feature" style="border-color: rgba(96,165,250,0.4); box-shadow: 0 18px 30px rgba(96,165,250,0.08);">
+              <div class="eyebrow" style="display: inline-block; margin-bottom: 8px;">Most popular</div>
+              <h3>Growth</h3>
+              <p style="font-size: 2rem; font-weight: 800; margin: 12px 0; color: white;">$99<span style="font-size: 1rem; color: var(--muted);">/mo</span></p>
+              <p>For businesses sending high-volume campaigns with advanced workflows.</p>
+            </article>
+
+            <article class="feature">
+              <h3>Enterprise</h3>
+              <p style="font-size: 2rem; font-weight: 800; margin: 12px 0; color: white;">Custom</p>
+              <p>Built for complex messaging needs with enterprise support and custom integrations.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="contact">
+        <div class="container">
+          <div class="cta-box">
+            <div>
+              <h3>Ready to launch smarter messaging?</h3>
+              <p>Talk to our team and get a custom plan for your business.</p>
+            </div>
+            <a class="btn btn-primary" href="mailto:hello@smswould.com">hello@smswould.com</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="brand">
+          <span class="brand-mark">S</span>
+          <span>smswould.com</span>
+        </div>
+        <div>© 2026 smswould.com — SMS messaging built for growth.</div>
+      </div>
+    </footer>
+  </body>
+</html>
